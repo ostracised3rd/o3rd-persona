@@ -259,7 +259,9 @@ impl BreadthFirst {
     pub fn run_better(&mut self) {
         if self.finished {return}
 
+        for runner in self.runners.iter_mut() {
 
+        } 
     }
 
 
@@ -314,6 +316,28 @@ impl BreadthFirst {
         vec![self.end.x, self.end.y]
     }
 }
+
+
+
+// struct BreadthFirstNext {
+//     maze: Maze,
+//     runners: Vec<BFRunner>,
+//     end: Point,
+//     is_done: bool
+// }
+
+// impl BreadthFirstNext {
+//     fn run(&mut self) {
+//         for runner in self.runners.iter_mut() {
+//             let steps = self.maze.neighbors(runner.current.x, runner.current.y);
+
+
+//         }
+//     }
+// }
+
+
+
 
 
 
