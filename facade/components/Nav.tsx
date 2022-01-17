@@ -1,53 +1,167 @@
 import Link from 'next/link'
+import React from "react";
+
 
 const Nav = () => {
+  const [navbarOpen, setNavbarOpen] = React.useState(true);
   return (
-    <nav className="flex" >
-      <ul>
-        <li>
-          <Link href='/'>Home</Link>
-        </li>
-        <li>
-          <Link href='/about'>About</Link>
-        </li>
-      </ul>
+
+    <>
+      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-neutral-900 border-d border-red-900">
+        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
+          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+          
+            <h1 className="text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-yellow-400">
+            <Link href='/'>O3rd</Link>
+            </h1>
+            
+            <button
+              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              type="button"
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              <i className="fas fa-bars"></i>
+            </button>
+          </div>
+          <div
+            className={
+              "lg:flex flex-grow items-center" +
+              (navbarOpen ? " flex" : " hidden")
+            }
+            id="example-navbar-danger"
+          >
+            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+              <li className="nav-item">
+              <h1 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-yellow-400 hover:text-red-400">
+                <Link href='/about'>about</Link>
+                <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
+              </h1>
+              </li>
+
+              <li className="nav-item">
+              <h1 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                <Link href='/drafts/maze-runner'>maze-runner</Link>
+                <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
+              </h1>
+                 
+  
+              </li>
+            </ul>
+          </div>
+        </div>
       </nav>
-    
-
-
-// <div className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
-//   <div x-data="{ open: false }" className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
-//     <div className="p-4 flex flex-row items-center justify-between">
-//       <a href="#" className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Flowtrail UI</a>
-//       <button className="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
-//         <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
-//           <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-//           <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-//         </svg>
-//       </button>
-//     </div>
-//     <nav :class="{'flex': open, 'hidden': !open}" className="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-//       <a className="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Blog</a>
-//       <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Portfolio</a>
-//       <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">About</a>
-//       <a className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
-//       <div @click.away="open = false" className="relative" x-data="{ open: false }">
-//         <button @click="open = !open" className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-//           <span>Dropdown</span>
-//           <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-//         </button>
-//         <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-//           <div className="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
-//             <a className="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #1</a>
-//             <a className="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #2</a>
-//             <a className="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Link #3</a>
-//           </div>
-//         </div>
-//       </div>    
-//     </nav>
-//   </div>
-// </div>
+    </>
   )
 }
 
 export default Nav
+
+
+
+// import React from "react";
+// import { createPopper } from "@popperjs/core";
+
+// const Dropdown = ({ color }) => {
+//   // dropdown props
+//   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
+//   const btnDropdownRef = React.createRef();
+//   const popoverDropdownRef = React.createRef();
+//   const openDropdownPopover = () => {
+//     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
+//       placement: "bottom-start"
+//     });
+//     setDropdownPopoverShow(true);
+//   };
+//   const closeDropdownPopover = () => {
+//     setDropdownPopoverShow(false);
+//   };
+//   // bg colors
+//   let bgColor;
+//   color === "white"
+//     ? (bgColor = "bg-blueGray-700")
+//     : (bgColor = "bg-" + color + "-500");
+//   return (
+//     <>
+//       <div className="flex flex-wrap">
+//         <div className="w-full sm:w-6/12 md:w-4/12 px-4">
+//           <div className="relative inline-flex align-middle w-full">
+//             <button
+//               className={
+//                 "text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " +
+//                 bgColor
+//               }
+//               type="button"
+//               ref={btnDropdownRef}
+//               onClick={() => {
+//                 dropdownPopoverShow
+//                   ? closeDropdownPopover()
+//                   : openDropdownPopover();
+//               }}
+//             >
+//               {color === "white" ? "White Dropdown" : color + " Dropdown"}
+//             </button>
+//             <div
+//               ref={popoverDropdownRef}
+//               className={
+//                 (dropdownPopoverShow ? "block " : "hidden ") +
+//                 (color === "white" ? "bg-white " : bgColor + " ") +
+//                 "text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1"
+//               }
+//               style={{ minWidth: "12rem" }}
+//             >
+//               <a
+//                 href="#pablo"
+//                 className={
+//                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent " +
+//                   (color === "white" ? " text-blueGray-700" : "text-white")
+//                 }
+//                 onClick={e => e.preventDefault()}
+//               >
+//                 Action
+//               </a>
+//               <a
+//                 href="#pablo"
+//                 className={
+//                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent " +
+//                   (color === "white" ? " text-blueGray-700" : "text-white")
+//                 }
+//                 onClick={e => e.preventDefault()}
+//               >
+//                 Another action
+//               </a>
+//               <a
+//                 href="#pablo"
+//                 className={
+//                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent " +
+//                   (color === "white" ? " text-blueGray-700" : "text-white")
+//                 }
+//                 onClick={e => e.preventDefault()}
+//               >
+//                 Something else here
+//               </a>
+//               <div className="h-0 my-2 border border-solid border-t-0 border-blueGray-800 opacity-25" />
+//               <a
+//                 href="#pablo"
+//                 className={
+//                   "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent " +
+//                   (color === "white" ? " text-blueGray-700" : "text-white")
+//                 }
+//                 onClick={e => e.preventDefault()}
+//               >
+//                 Seprated link
+//               </a>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default function DropdownRender() {
+//   return (
+//     <>
+//       <Dropdown color="teal" />
+//     </>
+//   );
+// }
