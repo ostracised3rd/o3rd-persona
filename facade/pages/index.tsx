@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Footer from '../components/Footer'
 
-import CliffordAttractor from '../sketchbook/CliffordAttractor'
+import Intro from '../sketchbook/Intro'
 import TechSketch from '../sketchbook/TechSketch'
 
 const Home: NextPage = () => {
@@ -13,16 +13,16 @@ const Home: NextPage = () => {
       <div className='w-screen h-screen relative z-0'>
         {/* background canvas */}
         <div className="w-screen h-screen flex justify-center items-center follow-sketch ">
-          <CliffordAttractor />
+          <Intro />
         </div>
 
         {/* intro */}
-        <div className='w-screen h-screen absolute inset-0 flex justify-center items-center z-10 text-accent font-Josefin'>
+        {/* <div className='w-screen h-screen absolute inset-0 flex justify-center items-center z-10 text-accent font-Josefin'>
           <div className='text-3xl'>
             <h1>Soheil Eivazy</h1>
             <h1>Web developer and some other things</h1>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* about */}

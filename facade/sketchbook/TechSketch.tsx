@@ -23,7 +23,6 @@ const TechSketch = () => {
 		p5.fill(0, 0, 100);
 		for (let i=0; i < 30; i++) {
 			p5.point(x+i, p5.sin(x+i))
-			p5.print(i)
 		}
 	};
 

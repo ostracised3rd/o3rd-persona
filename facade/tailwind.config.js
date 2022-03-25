@@ -16,7 +16,6 @@ module.exports = {
         'secondary-dark': '#e5e5e5',
         accent: "#facc15",
         'accent-secondary': "#ef4444"
-        // ...
       },
       fontFamily: {
         "Josefin": ["Josefin Sans", ...defaultTheme.fontFamily.sans],
