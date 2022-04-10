@@ -1,4 +1,4 @@
 mod utils;
-mod maze_runner;
 
-mod typewriter;
+mod maze_runner;
+mod words;

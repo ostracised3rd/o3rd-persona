@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { Typewriter } from "persona"
+import { Words } from "persona"
 import { memory } from "persona/persona_bg.wasm"
 import p5Types from "p5"
 
@@ -12,8 +12,8 @@ const Sketch = dynamic(
 const Intro = () => {
 
     let size: number
-    let particle_count: number
-    let typewriter: Typewriter
+    let cell_count: number
+    let words: Words
     
 
     const setup = (p5: p5Types, canvasParentRef: Element) => {
@@ -22,42 +22,49 @@ const Intro = () => {
         p5.colorMode(p5.HSB)
 		p5.background(0)
 
-        typewriter = Typewriter.new(
-            0, 0,
+        words = Words.new(
+            0, 
+            0,
             window.innerWidth, 
             window.innerHeight, 
             "SOHEIL\n DEVELOPER AND\n SOME OTHER THINGS"
         )
 
-        size = typewriter.get_size()
-        particle_count = typewriter.get_count() * 2
+        p5.print([window.innerWidth, 
+            window.innerHeight,])
 
-        const cellsPtr = typewriter.cells();
-		const cells = new Uint16Array(memory.buffer, cellsPtr, particle_count);
+        size = words.get_size() - 1
+        cell_count = words.get_count()
 
-        p5.print([size, particle_count,cells])
-
-        for (let i=0; i < particle_count; i++) {
-            p5.rect(cells[i], cells[++i], size, size)
-        }
-	};
-
-
-	const draw = (p5: p5Types) => {
-		typewriter.run(p5.mouseX, p5.mouseY)
-
-		const cellsPtr = typewriter.cells();
-		const cells = new Uint16Array(memory.buffer, cellsPtr, particle_count);
+        const cellsPtr = words.cells();
+		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
         
-        for (let i=0; i < particle_count; i++) {
-            
+
+        p5.print([size, cell_count, cells])
+
+
+        p5.noStroke()
+        for (let i=0; i < cell_count; i++) {
             p5.rect(cells[i], cells[++i], size, size)
         }
 	};
+
+
+	// const draw = (p5: p5Types) => {
+	// 	words.run(p5.mouseX, p5.mouseY)
+
+	// 	const cellsPtr = words.cells();
+	// 	const cells = new Uint16Array(memory.buffer, cellsPtr, particle_count);
+        
+    //     for (let i=0; i < particle_count; i++) {
+            
+    //         p5.rect(cells[i], cells[++i], size, size)
+    //     }
+	// };
 
 
     const mouseClicked = (p5: p5Types) => {
-        typewriter.repellant(p5.mouseX, p5.mouseY)
+        words.repellant(p5.mouseX, p5.mouseY)
     }
 
 
