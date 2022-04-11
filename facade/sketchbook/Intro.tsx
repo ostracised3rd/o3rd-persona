@@ -33,15 +33,11 @@ const Intro = () => {
         p5.print([window.innerWidth, 
             window.innerHeight,])
 
-        size = words.get_size() - 1
-        cell_count = words.get_count()
+        size = words.get_particle_size() - 1
+        cell_count = words.get_cell_count()
 
         const cellsPtr = words.cells();
 		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
-        
-
-        p5.print([size, cell_count, cells])
-
 
         p5.noStroke()
         for (let i=0; i < cell_count; i++) {
@@ -50,25 +46,30 @@ const Intro = () => {
 	};
 
 
-	// const draw = (p5: p5Types) => {
-	// 	words.run(p5.mouseX, p5.mouseY)
+	const draw = (p5: p5Types) => {
+        p5.background(0)
+		words.run(p5.mouseX, p5.mouseY)
 
-	// 	const cellsPtr = words.cells();
-	// 	const cells = new Uint16Array(memory.buffer, cellsPtr, particle_count);
+		const cellsPtr = words.cells();
+		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
         
-    //     for (let i=0; i < particle_count; i++) {
-            
-    //         p5.rect(cells[i], cells[++i], size, size)
-    //     }
-	// };
+        p5.noStroke()
+        for (let i=0; i < cell_count; i++) {
+            p5.rect(cells[i], cells[++i], size, size)
+        }
+	};
 
 
     const mouseClicked = (p5: p5Types) => {
-        words.repellant(p5.mouseX, p5.mouseY)
+        words.repellent(p5.mouseX, p5.mouseY)
+
+        const cellsPtr = words.cells();
+		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
+        p5.print(cells)
     }
 
 
-	return <Sketch className={"follow-sketch"} setup={setup}  mouseClicked={mouseClicked} />
+	return <Sketch className={"follow-sketch"} setup={setup} draw={draw} mouseClicked={mouseClicked} />
 }
 
 

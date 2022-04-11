@@ -1,7 +1,7 @@
 use std::collections::HashMap;
-use crate::utils::vector::{Line, Vector};
+use crate::utils::maths::{Line, Vector};
 
-type Letter = fn(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line>;
+type Letter = fn(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line>;
 
 
 pub struct Typewriter {
@@ -48,26 +48,26 @@ impl Typewriter {
         return alphabet
     }
 
-    fn quill(&self, letter: &char, sx: &i32, sy: &i32, w: &i32, h: &i32) -> Vec<Line> {
+    fn quill(&self, letter: &char, sx: &f64, sy: &f64, w: &f64, h: &f64) -> Vec<Line> {
         self.alphabet[letter](sx, sy, w, h)
     }
 }
 
 
-pub fn lettering(start: Vector, end: Vector, text: &str) -> (Vec<Line>, i32) {
+pub fn lettering(start: Vector, end: Vector, text: &str) -> (Vec<Line>, f64) {
     let typewriter = Typewriter::new();
     let text_lines: Vec<&str> = text.lines().map(|x| x.trim()).collect();
-    let text_len = text_lines.iter().map(|x| x.chars().count()).max().unwrap() as i32;
+    let text_len = text_lines.iter().map(|x| x.chars().count()).max().unwrap() as f64 ;
 
     println!("{:?} {:?}", start, end);
 
-    let fx = (end.x - start.x) / (4 + text_len + ((text_len-2)/4));
-    let fy = (fx as f32 * 1.5) as i32;
+    let fx = (end.x - start.x) / (4. + text_len + ((text_len-2.)/4.));
+    let fy = fx  * 1.5;
 
-    let off_x = start.x + 2*fx;
-    let off_y = ((end.y - start.y) - fy * ((text_lines.len() as i32 * 2 ) - 1)) / 3;
+    let off_x = start.x + 2.*fx;
+    let off_y = ((end.y - start.y) - fy * ((text_lines.len() as f64 * 2. ) - 1.)) / 3.;
 
-    let (mut w, mut h) = (off_x, start.y + 2 * off_y);
+    let (mut w, mut h) = (off_x, start.y + 2. * off_y);
     let mut lines = Vec::<Line>::new();
 
     for line in text_lines {
@@ -79,39 +79,39 @@ pub fn lettering(start: Vector, end: Vector, text: &str) -> (Vec<Line>, i32) {
             }
 
             lines.extend(typewriter.quill(&letter, &w, &h, &fx, &fy));
-            w += fx + fx / 4;
+            w += fx + fx / 4.;
         }
 
         w = off_x;
-        h += fy + fy / 4;
+        h += fy + fy / 4.;
     }
 
     (lines, fx)
 }
 
 
-fn a(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn a(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start: Vector{x:*sx, y: *sy},     end: Vector{x:*sx+w, y: *sy}},
         Line{start: Vector{x:*sx, y: *sy},     end: Vector{x:*sx, y: *sy+h}},
         Line{start: Vector{x:*sx+w, y: *sy},   end: Vector{x:*sx+w, y: *sy+h}},
-        Line{start: Vector{x:*sx, y: *sy+h/2}, end: Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start: Vector{x:*sx, y: *sy+h/2.}, end: Vector{x:*sx+w, y: *sy+h/2.}},
     ]
 } 
 
 
-fn b(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn b(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy+h},     end: Vector{x:*sx+w, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end:Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end:Vector{x:*sx+w, y: *sy+h/2.}},
         Line{start:Vector{x:*sx+w, y: *sy},     end:Vector{x:*sx+w, y: *sy+h}},
     ]
 } 
 
 
-fn c(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn c(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
@@ -120,82 +120,82 @@ fn c(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
 } 
 
 
-fn d(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn d(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
 
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy+h/2}},
-        Line{start:Vector{x:*sx, y: *sy+h},       end: Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx, y: *sy+h},       end: Vector{x:*sx+w, y: *sy+h/2.}},
 
     ]
 } 
 
 
-fn e(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn e(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end: Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h/2.}},
         Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx, y: *sy+h}},
     ]
 } 
 
 
-fn f(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn f(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end: Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h/2.}},
     ]
 } 
 
 
-fn g(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn g(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h/2},   end: Vector{x:*sx+w, y: *sy+h/2}},
-        Line{start:Vector{x:*sx+w, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx+w, y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx, y: *sy+h}},
     ]
 } 
 
 
-fn h(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn h(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx+w, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end:Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end:Vector{x:*sx+w, y: *sy+h/2.}},
     ]
 } 
 
 
-fn i(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn i(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
-        Line{start:Vector{x:*sx+w/2, y: *sy},   end:Vector{x:*sx+w/2, y: *sy+h}},
+        Line{start:Vector{x:*sx+w/2., y: *sy},   end:Vector{x:*sx+w/2., y: *sy+h}},
     ]
 } 
 
 
-fn j(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn j(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy+h},       end: Vector{x:*sx+w, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end: Vector{x:*sx, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx, y: *sy+h}},
     ]
 } 
 
 
-fn k(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn k(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end: Vector{x:*sx+w, y: *sy}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end: Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h}},
     ]
 } 
 
 
-fn l(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn l(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy+h},       end: Vector{x:*sx+w, y: *sy+h}},
@@ -203,17 +203,17 @@ fn l(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
 } 
 
 
-fn m(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn m(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2, y: *sy+h}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h}, end:Vector{x:*sx+w, y: *sy}},
+        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2., y: *sy+h}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h}, end:Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx+w, y: *sy}},
     ]
 } 
 
 
-fn n(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn n(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy+h}},
@@ -222,7 +222,7 @@ fn n(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
 } 
 
 
-fn o(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn o(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},   end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy},   end: Vector{x:*sx+w, y: *sy}},
@@ -232,86 +232,86 @@ fn o(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
 } 
 
 
-fn p(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn p(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx+w, y: *sy},   end: Vector{x:*sx+w, y: *sy+h/2}},
-        Line{start:Vector{x:*sx, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h/2}},
+        Line{start:Vector{x:*sx+w, y: *sy},   end: Vector{x:*sx+w, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h/2.}},
     ]
 } 
 
 
-fn q(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn q(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},   end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy},   end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy+h}, end: Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy}, end:Vector{x:*sx+w, y: *sy+h}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
     ]
 } 
 
 
-fn r(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn r(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx+w, y: *sy},   end: Vector{x:*sx+w, y: *sy+h/2}},
-        Line{start:Vector{x:*sx, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h/2}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx+w, y: *sy},   end: Vector{x:*sx+w, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
     ]
 } 
 
 
-fn s(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn s(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
-        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h/2}},
-        Line{start:Vector{x:*sx, y: *sy+h/2},   end: Vector{x:*sx+w, y: *sy+h/2}},
-        Line{start:Vector{x:*sx+w, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h/2.}},
+        Line{start:Vector{x:*sx+w, y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx, y: *sy+h}},
     ]
 } 
 
 
-fn t(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn t(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
-        Line{start:Vector{x:*sx+w/2, y: *sy},       end: Vector{x:*sx+w/2, y: *sy+h}},
+        Line{start:Vector{x:*sx+w/2., y: *sy},       end: Vector{x:*sx+w/2., y: *sy+h}},
     ]
 } 
 
 
-fn u(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn u(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx+w, y: *sy+h}},
-        Line{start:Vector{x:*sx+w, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx+w, y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx, y: *sy+h}},
     ]
 } 
 
 
-fn v(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn v(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
-        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2, y: *sy+h}},
-        Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx+w/2, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2., y: *sy+h}},
+        Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx+w/2., y: *sy+h}},
     ]
 } 
 
 
-fn w(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn w(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h},       end: Vector{x:*sx+w/2, y: *sy+h/2}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy+h},       end: Vector{x:*sx+w/2., y: *sy+h/2.}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx+w, y: *sy}},
     ]
 } 
 
 
-fn x(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line>{
+fn x(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line>{
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy+h}},
         Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
@@ -319,16 +319,16 @@ fn x(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line>{
 } 
 
 
-fn y(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn y(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
-        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2, y: *sy+h/2}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h/2}, end:Vector{x:*sx+w, y: *sy}},
-        Line{start:Vector{x:*sx+w/2, y: *sy+h/2}, end:Vector{x:*sx+w/2, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2., y: *sy+h/2.}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy}},
+        Line{start:Vector{x:*sx+w/2., y: *sy+h/2.}, end:Vector{x:*sx+w/2., y: *sy+h}},
     ]
 } 
 
 
-fn z(sx: &i32, sy: &i32, w: &i32, h: &i32)  -> Vec<Line> {
+fn z(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx+w, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
@@ -360,7 +360,7 @@ mod tests {
 
         println!("{}", size);
 
-        let _data = lettering(Vector{x:0, y: 0}, Vector{x:500, y: 300}, text);
+        // let _data = lettering(Vector{x:0, y: 0}, Vector{x:500, y: 300}, text);
 
         // println!("{:?}", data);
     }
