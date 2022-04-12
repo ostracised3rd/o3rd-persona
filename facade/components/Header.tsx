@@ -7,16 +7,16 @@ const Header = () => {
   return (
 
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-neutral-900 border-d border-red-900">
+      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-primary border-d border-red-900">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           
-            <h1 className="text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-yellow-400">
+            <h1 className="text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-secondary">
             <Link href='/'>O3rd</Link>
             </h1>
             
             <button
-              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="text-secondary cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
@@ -32,7 +32,7 @@ const Header = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
-              <h1 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-yellow-400 hover:text-red-400">
+              <h1 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-secondary hover:text-red-400">
                 <Link href='/about'>about</Link>
                 <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
               </h1>

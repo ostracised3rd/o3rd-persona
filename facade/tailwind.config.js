@@ -8,18 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#262626',
-        'primary-dark': '#171717',
-        'primary-light': '#404040',
-        secondary: '#f5f5f5',
-        'secondary-light': '#fafafa',
-        'secondary-dark': '#e5e5e5',
-        accent: "#facc15",
-        'accent-secondary': "#ef4444"
+        primary: "#292524",
+        secondary: "#e4e4e7",
       },
-      fontFamily: {
-        "Josefin": ["Josefin Sans", ...defaultTheme.fontFamily.sans],
-      }
+      fontFamily: {}
     }
   },
   plugins: [],

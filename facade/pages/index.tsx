@@ -93,7 +93,7 @@ const Home: NextPage = () => {
                       type="email"
                       id="email"
                       name="email"
-                      className="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 text-base outline-none text-primary-dark py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      className="w-full bg-primary rounded border border-gray-300 focus:border-indigo-500 text-base outline-none text-primary-dark py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                     />
                   </div>
                 </div>
@@ -108,12 +108,12 @@ const Home: NextPage = () => {
                     <textarea
                       id="message"
                       name="message"
-                      className="w-full bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                      className="w-full bg-primary rounded border border-gray-300 focus:border-indigo-500 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                     ></textarea>
                   </div>
                 </div>
                 <div className="p-2 w-full">
-                  <button className="flex mx-auto text-neutral-800 bg-yellow-400 border-0 py-2 px-8 focus:outline-none hover:bg-red-500 rounded text-lg">
+                  <button className="flex mx-auto text-neutral-800 bg-primary border-0 py-2 px-8 focus:outline-none hover:bg-secondary rounded text-lg">
                     Send Message
                   </button>
                 </div>

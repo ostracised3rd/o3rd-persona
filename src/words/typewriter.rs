@@ -61,7 +61,7 @@ pub fn lettering(start: Vector, end: Vector, text: &str) -> (Vec<Line>, f64) {
 
     println!("{:?} {:?}", start, end);
 
-    let fx = (end.x - start.x) / (4. + text_len + ((text_len-2.)/4.));
+    let fx = (end.x - start.x) / (4. + text_len + ((text_len-2.)/2.));
     let fy = fx  * 1.5;
 
     let off_x = start.x + 2.*fx;
@@ -79,11 +79,11 @@ pub fn lettering(start: Vector, end: Vector, text: &str) -> (Vec<Line>, f64) {
             }
 
             lines.extend(typewriter.quill(&letter, &w, &h, &fx, &fy));
-            w += fx + fx / 4.;
+            w += fx + fx/2.;
         }
 
         w = off_x;
-        h += fy + fy / 4.;
+        h += fy + fy / 2.;
     }
 
     (lines, fx)
@@ -136,7 +136,7 @@ fn e(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w, y: *sy}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h/2.}},
-        Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy+h},   end: Vector{x:*sx+w, y: *sy+h}},
     ]
 } 
 
@@ -156,7 +156,7 @@ fn g(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx+w/2., y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h/2.}},
         Line{start:Vector{x:*sx+w, y: *sy+h/2.}, end:Vector{x:*sx+w, y: *sy+h}},
-        Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx, y: *sy+h}},
+        Line{start:Vector{x:*sx, y: *sy+h},    end:Vector{x:*sx+w, y: *sy+h},   },
     ]
 } 
 
@@ -189,7 +189,7 @@ fn j(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
 fn k(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
     return vec![
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
-        Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy}},
+        Line{start: Vector{x:*sx+w, y: *sy}, end:Vector{x:*sx, y: *sy+h/2.},   },
         Line{start:Vector{x:*sx, y: *sy+h/2.},   end: Vector{x:*sx+w, y: *sy+h}},
     ]
 } 
@@ -208,7 +208,7 @@ fn m(sx: &f64, sy: &f64, w: &f64, h: &f64)  -> Vec<Line> {
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx, y: *sy+h}},
         Line{start:Vector{x:*sx, y: *sy},       end: Vector{x:*sx+w/2., y: *sy+h}},
         Line{start:Vector{x:*sx+w/2., y: *sy+h}, end:Vector{x:*sx+w, y: *sy}},
-        Line{start:Vector{x:*sx+w, y: *sy+h},   end:Vector{x:*sx+w, y: *sy}},
+        Line{start:Vector{x:*sx+w, y: *sy}, end:Vector{x:*sx+w, y: *sy+h},   },
     ]
 } 
 

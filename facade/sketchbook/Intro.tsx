@@ -14,7 +14,9 @@ const Intro = () => {
     let size: number
     let cell_count: number
     let words: Words
-    
+    let boom: boolean
+    let grenadeX: number
+    let grenadeY: number
 
     const setup = (p5: p5Types, canvasParentRef: Element) => {
 
@@ -35,20 +37,12 @@ const Intro = () => {
 
         size = words.get_particle_size() - 1
         cell_count = words.get_cell_count()
-
-        const cellsPtr = words.cells();
-		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
-
-        p5.noStroke()
-        for (let i=0; i < cell_count; i++) {
-            p5.rect(cells[i], cells[++i], size, size)
-        }
 	};
 
 
 	const draw = (p5: p5Types) => {
-        p5.background(0)
-		words.run(p5.mouseX, p5.mouseY)
+        p5.background(0, 0.3)
+		words.run(p5.mouseX, p5.mouseY, boom, grenadeX, grenadeY)
 
 		const cellsPtr = words.cells();
 		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
@@ -57,19 +51,25 @@ const Intro = () => {
         for (let i=0; i < cell_count; i++) {
             p5.rect(cells[i], cells[++i], size, size)
         }
+
+        boom = false
 	};
 
 
     const mouseClicked = (p5: p5Types) => {
-        words.repellent(p5.mouseX, p5.mouseY)
+        // words.repellent(p5.mouseX, p5.mouseY)
 
-        const cellsPtr = words.cells();
-		const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
-        p5.print(cells)
+        boom = true
+        grenadeY = p5.mouseY
+        grenadeX = p5.mouseX
+
+        // const cellsPtr = words.cells();
+		// const cells = new Int32Array(memory.buffer, cellsPtr, cell_count);
+        // p5.print(cells)
     }
 
 
-	return <Sketch className={"follow-sketch"} setup={setup} draw={draw} mouseClicked={mouseClicked} />
+	return <Sketch className={"follow-sketch"} setup={setup} draw={draw} mouseClicked={mouseClicked}/>
 }
 
 
