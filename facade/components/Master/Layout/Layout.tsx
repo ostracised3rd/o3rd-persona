@@ -1,18 +1,19 @@
-import Header from './Header'
-import Meta from './Meta'
+
 import React from "react"
-import Footer from './Footer'
+
+import { Header, Footer, Navbar} from '@components/Master'
 
 const Layout = ({ children }: {children: React.ReactNode }) => {
   return (
     <>
-      <Meta />
       <Header />
+      <Navbar />
       <div className="">
         <main className="">
           {children}
         </main>
       </div>
+      <Footer />
     </>
   )
 }

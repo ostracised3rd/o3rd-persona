@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from "react";
 
 
-const Header = () => {
+const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(true);
   return (
 
@@ -54,4 +54,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Navbar

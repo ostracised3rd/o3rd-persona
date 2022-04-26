@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const Meta = ({ title, keywords, description }: {title: string, keywords: string, description: string}) => {
+const Header = ({ title, keywords, description }: {title: string, keywords: string, description: string}) => {
   return (
     <Head>
       <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -13,10 +13,10 @@ const Meta = ({ title, keywords, description }: {title: string, keywords: string
   )
 }
 
-Meta.defaultProps = {
+Header.defaultProps = {
   title: 'o3rd',
   keywords: 'web development, programming, generative art, ',
   description: 'random',
 }
 
-export default Meta
+export default Header
